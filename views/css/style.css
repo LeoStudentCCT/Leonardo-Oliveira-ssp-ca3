@@ -3,28 +3,34 @@ body {
 }
 
 table {
-    width:100%;
-}
-
-table, th, td {
-    border-collapse: collapse;
-    border: 1px solid #ced4da;
-    padding: 0.5rem;
-}
-
-td, th {
-    text-align: left;
-}
-
-td:nth-child(1), td:nth-child(3){
-    text-align: center;
+    width: 100%;
+    border-collapse: separate;
 }
 
 th {
     font-weight: bold;
+    background-color: #a7a6a6;
+    color: rgb(7, 0, 0);
+    border: 1px solid rgb(1, 0, 3);
+    padding: 2px;
+    text-align: center;
+}
+
+td {
+    border: 1px solid black;
+    padding: 2px;
+    text-align: left;
+}
+
+td:nth-child(1), td:nth-child(3) {
+    text-align: center;
 }
 
 .selected {
     background-color: #dc3545;
     color: #FFF;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
 }

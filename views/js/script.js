@@ -1,70 +1,69 @@
-var gEntreeCount = 0;
-// returns a number that represents the sum of all the selected menu
-// item prices.
-function calculateBill(idMenuTable) {
-    var fBillTotal = 0.0;
-    var i = 0;
-    // find the table tag
-    var oTable = document.getElementById(idMenuTable);
-    // go through the table and add up the prices of all
-    // the selected items. The code takes advantage of the 
-    // fact that each checkbox has a corresponding row in
-    // the table, and the only INPUT tags are the checkboxes.
-    var aCBTags = oTable.getElementsByTagName('INPUT');
-    for (i = 0; i < aCBTags.length; i++) {
-        // is this menu item selected? it is if the checkbox is checked
-        if (aCBTags[i].checked) {
-            // get the checkbox' parent table row
-            var oTR = getParentTag(aCBTags[i], 'TR');
-            // retrieve the price from the price column, which is the third column in the table
-            var oTDPrice = oTR.getElementsByTagName('TD')[2];
-            // the first child text node of the column contains the price
-            fBillTotal += parseFloat(oTDPrice.firstChild.data);
-        };
-    };
-    // return the price as a decimal number with 2 decimal places
-    return Math.round(fBillTotal * 100.0) / 100.0;
-};
+window.onload = populateSelect();
 
-// This function either turns on or off the row highlighting for decaf
-// items (depending on the value of bShowDecaf)
-function highlightDecaf(idTable, bShowDecaf) {
-    // if bShowDecaf is true, then we're highlighting decaf
-    //	meals, otherwise we're unhighlighting them.
-    var i = 0;
-    var oTable = document.getElementById(idTable);
-    var oTBODY = oTable.getElementsByTagName('TBODY')[0];
-    var aTRs = oTBODY.getElementsByTagName('TR');
-    // walk through each of the table rows and see if it has a 
-    // "decaf" attribute on it.
-    for (i = 0; i < aTRs.length; i++) {
-        if (aTRs[i].getAttribute('decaf') && aTRs[i].getAttribute('decaf') == "true") {
-            if (bShowDecaf) {
-                aTRs[i].style.backgroundColor = "lightGreen";
-            } else {
-                aTRs[i].style.backgroundColor = "";
-            };
-        };
-    };
-};
+function populateSelect() {
+    $.getJSON("bookcollection.json", function (json) {
+        let ddlbooklist = document.getElementById('booklist');
+        ddlbooklist.innerHTML = "<option selected disabled>Choose your book type</option>"
 
-// Utility function for getting the parent tag of a given tag
-// but only of a certain type (i.e. a TR, a TABLE, etc.)
-function getParentTag(oNode, sParentType) {
-    var oParent = oNode.parentNode;
-    while (oParent) {
-        if (oParent.nodeName == sParentType)
-            return oParent;
-        oParent = oParent.parentNode;
-    };
-    return oParent;
-};
-window.addEventListener("load", function () {
-    document.forms[0].txtBillAmt.value = calculateBill('menuTable');
-    document.querySelector("#calcBill").addEventListener("click", function () {
-        document.forms[0].txtBillAmt.value = calculateBill('menuTable');
+        for (let i = 0; i < json.booktype.length; i++) {
+            ddlbooklist.innerHTML = ddlbooklist.innerHTML + '<option value="' + json.booktype[i].type + '">' + json.booktype[i].type + '</option>';
+        }
     });
-    document.querySelector("#showDecaf").addEventListener("click", function () {
-        highlightDecaf('menuTable', this.checked);
+}
+
+function populateTypeBook() {
+    $.getJSON("bookcollection.json", function (json) {
+        let ddlbooklist = document.getElementById('booklist').selectedIndex - 1;
+
+        if (ddlbooklist == -1)
+            return;
+
+        let ddloptionbooklist = document.getElementById('optionbooklist');
+
+        for (let i = ddloptionbooklist.options.length; i >= 0; i--) {
+            ddloptionbooklist.remove(i);
+        }
+
+        for (let i = 0; i < json.booktype[ddlbooklist].book.length; i++) {
+            ddloptionbooklist.innerHTML = ddloptionbooklist.innerHTML + '<option value="' + json.booktype[ddlbooklist].book[i].price + '">' + json.booktype[ddlbooklist].book[i].listing + '</option>';
+        }
     });
-});
+}
+
+function addSelected() {
+    let ddloptionbooklist = document.getElementById('optionbooklist');
+    let index = ddloptionbooklist.selectedIndex;
+
+    var amount = document.getElementById('txtAmount').value;
+    var listing = ddloptionbooklist[index].text;
+    var price = ddloptionbooklist[index].value;
+    let total = price*amount;
+
+    let table = document.getElementById("tdisplay");
+    let row = table.insertRow(-1); 
+
+    let c1 = row.insertCell(0);
+    let c2 = row.insertCell(1);
+    let c3 = row.insertCell(2);
+    let c4 = row.insertCell(3);
+
+    c1.innerText = listing;
+    c2.innerText = price;
+    c3.innerText = amount;  
+    c4.innerText = total;
+}
+
+function deleteRow(ele) {
+    var table = document.getElementById('tdisplay');
+    var rowCount = table.rows.length;
+    if (rowCount <= 1) {
+        alert("There's nothing to delete!");
+        return;
+    }
+    if (ele) {
+        ele.parentNode.parentNode.remove();
+    } else {
+        table.deleteRow(rowCount - 1);
+    }
+}
+
