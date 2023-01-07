@@ -1,0 +1,106 @@
+{
+    "booktype": [
+        {
+            "type": "Novel",
+            "book": [
+                {
+                    "listing": "Nineteen Eighty-Four/George Orwell",
+                    "price": 10.0
+                },
+                {
+                    "listing": "The Catcher in the Rye/J. D. Salinger",
+                    "price": 9.50
+                },
+                {
+                    "listing": "To Kill a Mockingbird/Harper Lee",
+                    "price": 5.99
+                }
+            ]
+        },
+        {
+            "type": "Series",
+            "book": [
+                {
+                    "listing": "Harry Potter",
+                    "price": 40.00
+                },
+                {
+                    "listing": "Hunger Games",
+                    "price": 35.00
+                },
+                {
+                    "listing": "The Twilight Saga",
+                    "price": 25.00
+                }
+            ]
+        },
+        {
+            "type": "Sci-Fi",
+            "book": [
+                {
+                    "listing": "Frankenstein/Mary Shelley",
+                    "price": 10.00
+                },
+                {
+                    "listing": "The Ultimate Hitchhiker's Guide/Douglas Adams",
+                    "price": 9.50
+                },
+                {
+                    "listing": "The Three-Body Problem/Liu Cixin",
+                    "price": 7.50
+                }
+            ]
+        },
+        {
+            "type": "History",
+            "book": [
+                {
+                    "listing": "Guns, Germs, and Steel/Jared Diamond",
+                    "price": 11.00
+                },
+                {
+                    "listing": "Sapiens: A Brief History of Humankind/Yuval Noah Harari",
+                    "price": 15.00
+                },
+                {
+                    "listing": "The 156-Storey Treehouse/Andy Griffiths",
+                    "price": 9.50
+                }
+            ]
+        },
+        {
+            "type": "Kids",
+            "book": [
+                {
+                    "listing": "The 156-Storey Treehouse/Andy Griffiths",
+                    "price": 9.50
+                },
+                {
+                    "listing": "Gangsta Granny Strikes Again!/David Walliams",
+                    "price": 8.5
+                },
+                {
+                    "listing": "SPACEBOY/David Walliams",
+                    "price": 7.0
+                }
+            ]
+        },
+        {
+            "type": "True Crime",
+            "book": [
+                {
+                    "listing": "Mindhunter: Inside the FBI's Elite Serial Crime Unit/John E. Douglas",
+                    "price": 11.5
+                },
+                {
+                    "listing": "The Devil in the White City/Erik Larson",
+                    "price": 12.0
+                },
+                {
+                    "listing": "The Five: The Untold Lives of the Woman Killed by Jack the Ripper/Hallie Rubenhold",
+                    "price": 15.0
+                }
+            ]
+        }
+    ]
+}
